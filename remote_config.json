@@ -2,7 +2,7 @@
   "parameters": {
     "test": {
       "defaultValue": {
-        "value": "test11111"
+        "value": "testtesttesttest"
       },
       "description": "test",
       "valueType": "STRING"
