@@ -1,0 +1,16 @@
+name: check_diff
+on: [pull_request]
+
+jobs:
+  check_diff:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    env:
+      BASE64_CREDENTIALS_CONTENT: ${{ secrets.CREDENTIALS }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      PR_NUMBER: ${{ github.event.pull_request.number }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: check_diff
+        uses: SugiKent/remote_config_check_diff@main

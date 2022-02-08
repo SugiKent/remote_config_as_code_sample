@@ -1,0 +1,23 @@
+name: apply_remote_config
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  apply_remote_config:
+    if: contains(github.event.comment.html_url, '/pull/') && startsWith(github.event.comment.body, '/apply')
+    runs-on: ubuntu-latest
+    env:
+      BASE64_CREDENTIALS_CONTENT: ${{ secrets.CREDENTIALS }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      PR_NUMBER: ${{ github.event.issue.number }}
+    steps:
+      - name: get upstream branch
+        id: upstreambranch
+        run: |
+          echo "::set-output name=branchname::$(curl -H "Authorization: token ${GITHUB_TOKEN}" ${{ github.event.issue.pull_request.url }} | jq '.head.ref' | sed 's/\"//g')"
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ steps.upstreambranch.outputs.branchname }}
+      - name: apply
+        uses: SugiKent/apply_remote_config@main
