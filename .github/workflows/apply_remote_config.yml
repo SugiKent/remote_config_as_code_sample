@@ -11,6 +11,7 @@ jobs:
       BASE64_CREDENTIALS_CONTENT: ${{ secrets.CREDENTIALS }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       PR_NUMBER: ${{ github.event.issue.number }}
+      TARGET_FILE: "staging_remote_config.json"
     steps:
       - name: get upstream branch
         id: upstreambranch

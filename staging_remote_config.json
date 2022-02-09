@@ -1,0 +1,11 @@
+{
+  "parameters": {
+    "test": {
+      "defaultValue": {
+        "value": "aaaa"
+      },
+      "description": "test",
+      "valueType": "STRING"
+    }
+  }
+}
